@@ -4,16 +4,17 @@
   "private": true,
   "description": "OpenZap - Free WhatsApp click-to-chat link and QR code generator.",
   "scripts": {
-    "dev": "next dev",
+    "prepare": "husky",
+    "dev": "next dev --port 30303",
+    "development": "npm run dev",
     "build": "next build",
-    "start": "next start",
+    "prod": "next start",
+    "production": "npm run prod",
     "lint": "eslint src/ commitlint.config.mjs eslint.config.mjs next.config.ts postcss.config.mjs vitest.config.ts",
     "lint:fix": "bun run lint -- --fix",
-    "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "prepare": "husky"
+    "test:watch": "vitest"
   },
   "engines": {
     "node": ">=20",
