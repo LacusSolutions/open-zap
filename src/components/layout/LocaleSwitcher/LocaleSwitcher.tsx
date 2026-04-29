@@ -3,11 +3,11 @@
 import { Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import { type ChangeEvent, type ReactElement, useTransition } from "react";
+import { type ReactElement, useMemo, useTransition } from "react";
 
+import { Combobox, type ComboboxItem } from "@/components/ui/Combobox";
 import { type Locale, LOCALE_LABELS, LOCALES } from "@/i18n/config";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 
 export function LocaleSwitcher(): ReactElement {
   const t = useTranslations("locale");
@@ -17,47 +17,44 @@ export function LocaleSwitcher(): ReactElement {
   const params = useParams();
   const [isPending, startTransition] = useTransition();
 
-  function onChange(event: ChangeEvent<HTMLSelectElement>): void {
-    const nextLocale = event.target.value as Locale;
+  const items = useMemo<ComboboxItem<Locale>[]>(
+    () =>
+      LOCALES.map((locale) => ({
+        value: locale,
+        label: LOCALE_LABELS[locale].native,
+        description: LOCALE_LABELS[locale].english,
+        keywords: [
+          LOCALE_LABELS[locale].english,
+          LOCALE_LABELS[locale].native,
+          locale,
+        ],
+      })),
+    [],
+  );
+
+  function onChange(next: Locale): void {
+    if (next === current) return;
 
     startTransition(() => {
       router.replace(
         // @ts-expect-error - params type is too narrow for the generic route signature
         { pathname, params },
-        { locale: nextLocale },
+        { locale: next },
       );
     });
   }
 
   return (
-    <label
-      className={cn(
-        "focus-ring inline-flex h-9 items-center gap-2 rounded-full border px-3",
-        "border-[var(--color-border)] bg-[var(--color-surface)]",
-        "text-sm text-[var(--color-text-muted)] transition-colors",
-        "hover:border-brand-500/40 hover:text-brand-600",
-        isPending && "opacity-60",
-      )}
-    >
-      <Languages aria-hidden="true" className="size-4" />
-      <span className="sr-only">{t("switchLabel")}</span>
-      <select
-        aria-label={t("switchLabel")}
-        value={current}
-        onChange={onChange}
-        disabled={isPending}
-        className="cursor-pointer bg-transparent pr-1 text-sm focus:outline-none"
-      >
-        {LOCALES.map((locale) => (
-          <option
-            key={locale}
-            value={locale}
-            className="text-[var(--color-text)]"
-          >
-            {LOCALE_LABELS[locale].native}
-          </option>
-        ))}
-      </select>
-    </label>
+    <Combobox<Locale>
+      items={items}
+      value={current}
+      onValueChange={onChange}
+      ariaLabel={t("switchLabel")}
+      triggerVariant="icon"
+      triggerIcon={<Languages aria-hidden="true" className="size-4" />}
+      align="end"
+      showSearch={false}
+      disabled={isPending}
+    />
   );
 }

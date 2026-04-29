@@ -15,7 +15,11 @@ export interface ComboboxItem<T extends string = string> {
   value: T;
 }
 
+export type ComboboxAlign = "center" | "end" | "start";
+export type ComboboxTriggerVariant = "field" | "icon";
+
 export interface ComboboxProps<T extends string = string> {
+  align?: ComboboxAlign;
   ariaLabel?: string;
   className?: string;
   contentClassName?: string;
@@ -27,77 +31,111 @@ export interface ComboboxProps<T extends string = string> {
   placeholder?: string;
   searchPlaceholder?: string;
   showSearch?: boolean;
+  triggerClassName?: string;
+  triggerIcon?: ReactNode;
+  triggerVariant?: ComboboxTriggerVariant;
   value: T;
 }
 
 export function Combobox<T extends string = string>({
-  items,
-  value,
-  onValueChange,
-  id,
-  placeholder = "Select…",
-  searchPlaceholder = "Search…",
-  emptyLabel = "No results.",
+  align = "start",
   ariaLabel,
-  showSearch = true,
-  disabled,
   className,
   contentClassName,
+  disabled,
+  emptyLabel = "No results.",
+  id,
+  items,
+  onValueChange,
+  placeholder = "Select…",
+  searchPlaceholder = "Search…",
+  showSearch = true,
+  triggerClassName,
+  triggerIcon,
+  triggerVariant = "field",
+  value,
 }: ComboboxProps<T>): ReactElement {
   const [open, setOpen] = useState(false);
   const listboxId = useId();
   const selected = items.find((item) => item.value === value);
+  const iconNode = triggerIcon ?? selected?.icon ?? null;
+
+  const commonTriggerProps = {
+    "aria-controls": listboxId,
+    "aria-expanded": open,
+    "aria-haspopup": "listbox" as const,
+    "aria-label": ariaLabel,
+    disabled,
+    id,
+    role: "combobox" as const,
+    type: "button" as const,
+  };
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <button
-          type="button"
-          id={id}
-          role="combobox"
-          aria-expanded={open}
-          aria-controls={listboxId}
-          aria-haspopup="listbox"
-          aria-label={ariaLabel}
-          disabled={disabled}
-          className={cn(
-            "focus-ring group flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left",
-            "bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text)]",
-            "transition-colors hover:border-brand-500/40",
-            "data-[state=open]:border-brand-500/60 data-[state=open]:ring-2 data-[state=open]:ring-brand-500/10",
-            "disabled:cursor-not-allowed disabled:opacity-60",
-            className,
-          )}
-        >
-          {selected?.icon ? (
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-700 dark:text-brand-400">
-              {selected.icon}
-            </span>
-          ) : null}
-          <span className="flex min-w-0 flex-1 flex-col leading-tight">
-            <span className="truncate text-sm font-medium">
-              {selected?.label ?? placeholder}
-            </span>
-            {selected?.description ? (
-              <span className="mt-0.5 truncate text-xs text-[var(--color-text-muted)]">
-                {selected.description}
+        {triggerVariant === "icon" ? (
+          <button
+            {...commonTriggerProps}
+            title={ariaLabel}
+            className={cn(
+              "focus-ring inline-flex size-9 items-center justify-center rounded-full border transition-colors",
+              "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)]",
+              "hover:border-brand-500/40 hover:text-brand-600",
+              "data-[state=open]:border-brand-500/60 data-[state=open]:text-brand-600",
+              "disabled:cursor-not-allowed disabled:opacity-60",
+              className,
+              triggerClassName,
+            )}
+          >
+            {iconNode}
+          </button>
+        ) : (
+          <button
+            {...commonTriggerProps}
+            className={cn(
+              "focus-ring group flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left",
+              "bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text)]",
+              "transition-colors hover:border-brand-500/40",
+              "data-[state=open]:border-brand-500/60 data-[state=open]:ring-2 data-[state=open]:ring-brand-500/10",
+              "disabled:cursor-not-allowed disabled:opacity-60",
+              className,
+              triggerClassName,
+            )}
+          >
+            {iconNode ? (
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-700 dark:text-brand-400">
+                {iconNode}
               </span>
             ) : null}
-          </span>
-          <ChevronsUpDown
-            aria-hidden="true"
-            className="size-4 shrink-0 text-[var(--color-text-muted)] transition-transform group-data-[state=open]:rotate-180"
-          />
-        </button>
+            <span className="flex min-w-0 flex-1 flex-col leading-tight">
+              <span className="truncate text-sm font-medium">
+                {selected?.label ?? placeholder}
+              </span>
+              {selected?.description ? (
+                <span className="mt-0.5 truncate text-xs text-[var(--color-text-muted)]">
+                  {selected.description}
+                </span>
+              ) : null}
+            </span>
+            <ChevronsUpDown
+              aria-hidden="true"
+              className="size-4 shrink-0 text-[var(--color-text-muted)] transition-transform group-data-[state=open]:rotate-180"
+            />
+          </button>
+        )}
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          align="start"
+          align={align}
           sideOffset={8}
           collisionPadding={16}
           className={cn(
-            "popover-content z-50 w-[var(--radix-popover-trigger-width)] min-w-[16rem] origin-[var(--radix-popover-content-transform-origin)] overflow-hidden rounded-xl border shadow-xl",
+            "popover-content z-50 origin-[var(--radix-popover-content-transform-origin)] overflow-hidden rounded-xl border shadow-xl",
             "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]",
+            triggerVariant === "icon"
+              ? "min-w-[14rem]"
+              : "w-[var(--radix-popover-trigger-width)] min-w-[16rem]",
             contentClassName,
           )}
         >

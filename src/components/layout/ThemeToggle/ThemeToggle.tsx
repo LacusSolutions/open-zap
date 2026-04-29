@@ -3,18 +3,23 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { type ReactElement, useSyncExternalStore } from "react";
+import {
+  type ReactElement,
+  type ReactNode,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
-import { cn } from "@/lib/utils";
+import { Combobox, type ComboboxItem } from "@/components/ui/Combobox";
 
-const ORDER = ["system", "light", "dark"] as const;
-type Mode = (typeof ORDER)[number];
+const MODES = ["system", "light", "dark"] as const;
+type Mode = (typeof MODES)[number];
 
-function nextTheme(current: string | undefined): Mode {
-  const idx = Math.max(0, ORDER.indexOf((current as Mode) ?? "system"));
-
-  return ORDER[(idx + 1) % ORDER.length];
-}
+const MODE_ICONS: Record<Mode, ReactNode> = {
+  system: <Monitor className="size-4" aria-hidden="true" />,
+  light: <Sun className="size-4" aria-hidden="true" />,
+  dark: <Moon className="size-4" aria-hidden="true" />,
+};
 
 function subscribe(): () => void {
   return () => {
@@ -41,29 +46,35 @@ export function ThemeToggle(): ReactElement {
 
   const current = (theme as Mode | undefined) ?? "system";
   const effective = resolvedTheme ?? "light";
-  const label = t(`modes.${current}`);
-  const Icon = mounted
+
+  const triggerIcon = mounted
     ? current === "system"
-      ? Monitor
+      ? MODE_ICONS.system
       : effective === "dark"
-        ? Moon
-        : Sun
-    : Monitor;
+        ? MODE_ICONS.dark
+        : MODE_ICONS.light
+    : MODE_ICONS.system;
+
+  const items = useMemo<ComboboxItem<Mode>[]>(
+    () =>
+      MODES.map((mode) => ({
+        value: mode,
+        label: t(`modes.${mode}`),
+        icon: MODE_ICONS[mode],
+      })),
+    [t],
+  );
 
   return (
-    <button
-      type="button"
-      aria-label={t("toggleAriaLabel", { current: label })}
-      title={t("toggleTitle", { current: label })}
-      onClick={() => setTheme(nextTheme(current))}
-      className={cn(
-        "focus-ring inline-flex size-9 items-center justify-center rounded-full",
-        "border border-[var(--color-border)] bg-[var(--color-surface)]",
-        "text-[var(--color-text-muted)] transition-colors",
-        "hover:text-brand-600 hover:border-brand-500/40",
-      )}
-    >
-      <Icon aria-hidden="true" className="size-4" />
-    </button>
+    <Combobox<Mode>
+      items={items}
+      value={current}
+      onValueChange={(next) => setTheme(next)}
+      ariaLabel={t("toggleAriaLabel", { current: t(`modes.${current}`) })}
+      triggerVariant="icon"
+      triggerIcon={triggerIcon}
+      align="end"
+      showSearch={false}
+    />
   );
 }
