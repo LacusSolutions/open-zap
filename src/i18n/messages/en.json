@@ -55,7 +55,7 @@
     },
     "shortCode": {
       "label": "Business short code",
-      "description": "wa.me/message/<CODE> — uses a WhatsApp Business short link."
+      "description": "wa.me/message/[CODE] — uses a WhatsApp Business short link."
     },
     "combobox": {
       "ariaLabel": "Link type",

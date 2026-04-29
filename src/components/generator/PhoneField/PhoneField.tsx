@@ -42,12 +42,15 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
           name="country"
           render={({ field }) => (
             <Select id="country" {...field}>
-              {countries.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {getFlagEmoji(c.code)} {localizedCountryName(c.code, locale)}{" "}
-                  ({c.dialCode})
-                </option>
-              ))}
+              {countries.map((c) => {
+                const name = localizedCountryName(c.code, locale);
+
+                return (
+                  <option key={c.code} value={c.code} suppressHydrationWarning>
+                    {getFlagEmoji(c.code)} {name} ({c.dialCode})
+                  </option>
+                );
+              })}
             </Select>
           )}
         />
