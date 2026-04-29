@@ -1,14 +1,14 @@
-import { useTranslations } from "next-intl";
-import type { ReactElement } from "react";
+import { useTranslations } from 'next-intl';
+import type { ReactElement } from 'react';
 
-import { FeedbackDialog } from "@/components/feedback/FeedbackDialog";
-import { GitHubIcon } from "@/components/layout/icons/GitHubIcon";
-import { LocaleSwitcher } from "@/components/layout/LocaleSwitcher";
-import { Logo } from "@/components/layout/Logo";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { Link } from "@/i18n/navigation";
+import { FeedbackDialog } from '@/components/feedback/FeedbackDialog';
+import { GitHubIcon } from '@/components/layout/icons/GitHubIcon';
+import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
+import { Logo } from '@/components/layout/Logo';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
+import { Link } from '@/i18n/navigation';
 
-const GITHUB_URL = "https://github.com/juliolmuller/openzap";
+const GITHUB_URL = 'https://github.com/juliolmuller/openzap';
 
 export function Header(): ReactElement {
   const t = useTranslations();
@@ -22,12 +22,8 @@ export function Header(): ReactElement {
         >
           <Logo />
           <div className="flex flex-col leading-none">
-            <span className="text-lg font-bold tracking-tight">
-              {t("app.name")}
-            </span>
-            <span className="text-[11px] text-[var(--color-text-muted)]">
-              {t("app.tagline")}
-            </span>
+            <span className="text-lg font-bold tracking-tight">{t('app.name')}</span>
+            <span className="text-[11px] text-[var(--color-text-muted)]">{t('app.tagline')}</span>
           </div>
         </Link>
         <div className="flex items-center gap-2">
@@ -38,8 +34,8 @@ export function Header(): ReactElement {
             href={GITHUB_URL}
             target="_blank"
             rel="noreferrer noopener"
-            aria-label={t("header.github")}
-            title={t("header.github")}
+            aria-label={t('header.github')}
+            title={t('header.github')}
             className="focus-ring inline-flex size-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)] transition-colors hover:border-brand-500/40 hover:text-brand-600"
           >
             <GitHubIcon aria-hidden="true" className="size-4" />

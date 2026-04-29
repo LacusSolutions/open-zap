@@ -1,1 +1,1 @@
-export { VariantCombobox } from "./VariantCombobox";
+export { VariantCombobox } from './VariantCombobox';

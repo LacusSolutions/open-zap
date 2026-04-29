@@ -1,1 +1,1 @@
-export { QrPreview } from "./QrPreview";
+export { QrPreview } from './QrPreview';

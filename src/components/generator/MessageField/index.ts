@@ -1,1 +1,1 @@
-export { MessageField } from "./MessageField";
+export { MessageField } from './MessageField';

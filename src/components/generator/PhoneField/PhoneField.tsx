@@ -1,42 +1,38 @@
-"use client";
+'use client';
 
-import { useLocale, useTranslations } from "next-intl";
-import { type ReactElement, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { useLocale, useTranslations } from 'next-intl';
+import { type ReactElement, useMemo } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Select } from "@/components/ui/Select";
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Select } from '@/components/ui/Select';
 import {
   type CountryCode,
   getFlagEmoji,
   getSortedCountries,
   isValidFor,
   localizedCountryName,
-} from "@/lib/phone";
-import type { FormValues } from "@/lib/schema";
+} from '@/lib/phone';
+import type { FormValues } from '@/lib/schema';
 
 interface PhoneFieldProps {
   required?: boolean;
 }
 
 export function PhoneField({ required }: PhoneFieldProps): ReactElement {
-  const t = useTranslations("form.phone");
+  const t = useTranslations('form.phone');
   const locale = useLocale();
   const { control, watch, formState } = useFormContext<FormValues>();
   const countries = useMemo(() => getSortedCountries(), []);
-  const country = watch("country") as CountryCode;
-  const phone = watch("phone");
-  const showError =
-    required &&
-    !!phone &&
-    !isValidFor(phone, country) &&
-    !!formState.submitCount;
+  const country = watch('country') as CountryCode;
+  const phone = watch('phone');
+  const showError = required && !!phone && !isValidFor(phone, country) && !!formState.submitCount;
 
   return (
     <fieldset className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
       <div>
-        <Label htmlFor="country">{t("countryLabel")}</Label>
+        <Label htmlFor="country">{t('countryLabel')}</Label>
         <Controller
           control={control}
           name="country"
@@ -56,7 +52,7 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
       </div>
       <div>
-        <Label htmlFor="phone">{t("label")}</Label>
+        <Label htmlFor="phone">{t('label')}</Label>
         <Controller
           control={control}
           name="phone"
@@ -65,7 +61,7 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
               id="phone"
               inputMode="tel"
               autoComplete="tel"
-              placeholder={t("placeholder")}
+              placeholder={t('placeholder')}
               invalid={showError}
               {...field}
             />
@@ -73,9 +69,9 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
         <p
           id="phone-help"
-          className={`mt-1 text-xs ${showError ? "text-red-500" : "text-[var(--color-text-muted)]"}`}
+          className={`mt-1 text-xs ${showError ? 'text-red-500' : 'text-[var(--color-text-muted)]'}`}
         >
-          {showError ? t("invalid") : t("help")}
+          {showError ? t('invalid') : t('help')}
         </p>
       </div>
     </fieldset>

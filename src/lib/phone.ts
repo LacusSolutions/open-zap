@@ -5,7 +5,7 @@ import {
   getCountryCallingCode,
   isValidPhoneNumber,
   parsePhoneNumberFromString,
-} from "libphonenumber-js";
+} from 'libphonenumber-js';
 
 export type { AsYouType, CountryCode };
 
@@ -14,17 +14,7 @@ export interface CountryEntry {
   dialCode: string;
 }
 
-const FEATURED_COUNTRIES: CountryCode[] = [
-  "BR",
-  "US",
-  "GB",
-  "ES",
-  "MX",
-  "PT",
-  "AR",
-  "CL",
-  "CO",
-];
+const FEATURED_COUNTRIES: CountryCode[] = ['BR', 'US', 'GB', 'ES', 'MX', 'PT', 'AR', 'CL', 'CO'];
 
 export function getSortedCountries(): CountryEntry[] {
   const all = getCountries().map<CountryEntry>((code) => ({
@@ -48,7 +38,7 @@ export function getSortedCountries(): CountryEntry[] {
 }
 
 export function getFlagEmoji(countryCode: string): string {
-  const base = 0x1f1e6 - "A".charCodeAt(0);
+  const base = 0x1f1e6 - 'A'.charCodeAt(0);
 
   return String.fromCodePoint(
     ...Array.from(countryCode.toUpperCase(), (c) => c.charCodeAt(0) + base),
@@ -58,7 +48,7 @@ export function getFlagEmoji(countryCode: string): string {
 export function parsePhone(raw: string, country: CountryCode): string {
   const parsed = parsePhoneNumberFromString(raw, country);
 
-  return parsed?.number.replace(/^\+/, "") ?? "";
+  return parsed?.number.replace(/^\+/, '') ?? '';
 }
 
 export function isValidFor(raw: string, country: CountryCode): boolean {
@@ -68,19 +58,16 @@ export function isValidFor(raw: string, country: CountryCode): boolean {
 }
 
 export function formatAsYouType(raw: string, country: CountryCode): string {
-  if (!raw) return "";
+  if (!raw) return '';
 
   const parsed = parsePhoneNumberFromString(raw, country);
 
   return parsed?.formatInternational() ?? raw;
 }
 
-export function localizedCountryName(
-  code: CountryCode,
-  locale: string,
-): string {
+export function localizedCountryName(code: CountryCode, locale: string): string {
   try {
-    const display = new Intl.DisplayNames([locale], { type: "region" });
+    const display = new Intl.DisplayNames([locale], { type: 'region' });
 
     return display.of(code) ?? code;
   } catch {

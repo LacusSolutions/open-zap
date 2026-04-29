@@ -1,1 +1,1 @@
-export { GeneratorForm } from "./GeneratorForm";
+export { GeneratorForm } from './GeneratorForm';

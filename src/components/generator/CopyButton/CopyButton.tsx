@@ -1,22 +1,18 @@
-"use client";
+'use client';
 
-import { Check, Copy } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { type ReactElement, useCallback, useState } from "react";
+import { Check, Copy } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { type ReactElement, useCallback, useState } from 'react';
 
-import { Button, type ButtonProps } from "@/components/ui/Button";
+import { Button, type ButtonProps } from '@/components/ui/Button';
 
-interface CopyButtonProps extends Omit<ButtonProps, "children" | "onClick"> {
+interface CopyButtonProps extends Omit<ButtonProps, 'children' | 'onClick'> {
   onCopy?: () => void;
   text: string;
 }
 
-export function CopyButton({
-  text,
-  onCopy,
-  ...props
-}: CopyButtonProps): ReactElement {
-  const t = useTranslations("preview.url");
+export function CopyButton({ text, onCopy, ...props }: CopyButtonProps): ReactElement {
+  const t = useTranslations('preview.url');
   const [copied, setCopied] = useState(false);
 
   const handle = useCallback(async () => {
@@ -35,12 +31,12 @@ export function CopyButton({
       {copied ? (
         <>
           <Check className="size-4" aria-hidden="true" />
-          {t("copied")}
+          {t('copied')}
         </>
       ) : (
         <>
           <Copy className="size-4" aria-hidden="true" />
-          {t("copy")}
+          {t('copy')}
         </>
       )}
     </Button>

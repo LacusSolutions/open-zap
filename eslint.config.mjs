@@ -1,38 +1,19 @@
-import nextPlugin from "@next/eslint-plugin-next";
-import any from "eslint-config-any";
-import globals from "globals";
+import nextPlugin from '@next/eslint-plugin-next';
+import anyConfig from 'eslint-config-any';
+import { defineConfig } from 'eslint/config';
 
-const JS_TS_GLOB = ["**/*.{js,mjs,cjs,jsx,ts,tsx,mts,cts}"];
+const JS_TS_GLOB = ['**/*.{js,mjs,cjs,jsx,ts,tsx,mts,cts}'];
 
-export default [
-  {
-    ignores: [
-      ".next/**",
-      "node_modules/**",
-      "public/**",
-      "coverage/**",
-      "next-env.d.ts",
-      "**/*.md",
-      "**/*.mdx",
-      "bun.lock",
-    ],
-  },
-
-  ...any.react,
-
+export default defineConfig([
+  ...anyConfig.react,
   {
     files: JS_TS_GLOB,
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+    plugins: {
+      '@next/next': nextPlugin,
     },
-  },
-
-  {
-    files: JS_TS_GLOB,
-    plugins: { "@next/next": nextPlugin },
     rules: {
       ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
     },
   },
-];
+]);

@@ -1,37 +1,32 @@
-"use client";
+'use client';
 
-import { Download } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { type ReactElement, useEffect, useRef, useState } from "react";
+import { Download } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { type ReactElement, useEffect, useRef, useState } from 'react';
 
-import { Button } from "@/components/ui/Button";
-import { Label } from "@/components/ui/Label";
-import {
-  downloadPng,
-  downloadSvg,
-  drawToCanvas,
-  type ErrorCorrectionLevel,
-} from "@/lib/qrcode";
+import { Button } from '@/components/ui/Button';
+import { Label } from '@/components/ui/Label';
+import { downloadPng, downloadSvg, drawToCanvas, type ErrorCorrectionLevel } from '@/lib/qrcode';
 
 interface QrPreviewProps {
-  onDownload?: (format: "png" | "svg") => void;
+  onDownload?: (format: 'png' | 'svg') => void;
   url: string;
 }
 
-const LEVELS: ErrorCorrectionLevel[] = ["L", "M", "Q", "H"];
+const LEVELS: ErrorCorrectionLevel[] = ['L', 'M', 'Q', 'H'];
 
 export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
-  const t = useTranslations("preview.qr");
+  const t = useTranslations('preview.qr');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [size, setSize] = useState(320);
   const [margin, setMargin] = useState(2);
-  const [level, setLevel] = useState<ErrorCorrectionLevel>("M");
+  const [level, setLevel] = useState<ErrorCorrectionLevel>('M');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    drawToCanvas(canvas, url || " ", {
+    drawToCanvas(canvas, url || ' ', {
       size,
       margin,
       errorCorrectionLevel: level,
@@ -41,21 +36,21 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
   }, [url, size, margin, level]);
 
   async function onPng(): Promise<void> {
-    await downloadPng(url, "openzap-qr.png", {
+    await downloadPng(url, 'openzap-qr.png', {
       size,
       margin,
       errorCorrectionLevel: level,
     });
-    onDownload?.("png");
+    onDownload?.('png');
   }
 
   async function onSvg(): Promise<void> {
-    await downloadSvg(url, "openzap-qr.svg", {
+    await downloadSvg(url, 'openzap-qr.svg', {
       size,
       margin,
       errorCorrectionLevel: level,
     });
-    onDownload?.("svg");
+    onDownload?.('svg');
   }
 
   const displayMaxPx = Math.min(size, 240);
@@ -65,7 +60,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
       <div className="flex items-center justify-center rounded-2xl bg-white p-4 ring-1 ring-[var(--color-border)]">
         <canvas
           ref={canvasRef}
-          aria-label={t("title")}
+          aria-label={t('title')}
           className="h-auto max-w-full"
           style={{ width: `${displayMaxPx}px` }}
         />
@@ -74,10 +69,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div>
           <Label htmlFor="qr-size">
-            {t("size")}{" "}
-            <span className="text-xs text-[var(--color-text-muted)]">
-              ({size}px)
-            </span>
+            {t('size')} <span className="text-xs text-[var(--color-text-muted)]">({size}px)</span>
           </Label>
           <input
             id="qr-size"
@@ -92,10 +84,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
         </div>
         <div>
           <Label htmlFor="qr-margin">
-            {t("margin")}{" "}
-            <span className="text-xs text-[var(--color-text-muted)]">
-              ({margin})
-            </span>
+            {t('margin')} <span className="text-xs text-[var(--color-text-muted)]">({margin})</span>
           </Label>
           <input
             id="qr-margin"
@@ -109,7 +98,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
           />
         </div>
         <div>
-          <Label htmlFor="qr-level">{t("errorCorrection")}</Label>
+          <Label htmlFor="qr-level">{t('errorCorrection')}</Label>
           <select
             id="qr-level"
             value={level}
@@ -128,11 +117,11 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
       <div className="flex flex-wrap gap-2">
         <Button type="button" variant="primary" size="sm" onClick={onPng}>
           <Download className="size-4" aria-hidden="true" />
-          {t("downloadPng")}
+          {t('downloadPng')}
         </Button>
         <Button type="button" variant="outline" size="sm" onClick={onSvg}>
           <Download className="size-4" aria-hidden="true" />
-          {t("downloadSvg")}
+          {t('downloadSvg')}
         </Button>
       </div>
     </div>

@@ -1,6 +1,6 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
@@ -10,20 +10,13 @@ export function Logo({ className }: LogoProps): ReactElement {
   return (
     <svg
       viewBox="0 0 32 32"
-      className={cn("size-8", className)}
+      className={cn('size-8', className)}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <defs>
-        <linearGradient
-          id="oz-grad"
-          x1="0"
-          y1="0"
-          x2="32"
-          y2="32"
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="oz-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#25D366" />
           <stop offset="1" stopColor="#075E54" />
         </linearGradient>

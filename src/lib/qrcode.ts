@@ -1,7 +1,4 @@
-import QRCode, {
-  type QRCodeErrorCorrectionLevel,
-  type QRCodeToDataURLOptions,
-} from "qrcode";
+import QRCode, { type QRCodeErrorCorrectionLevel, type QRCodeToDataURLOptions } from 'qrcode';
 
 export type ErrorCorrectionLevel = QRCodeErrorCorrectionLevel;
 
@@ -16,28 +13,25 @@ export interface QrCodeOptions {
 const DEFAULTS: {
   darkColor: string;
   lightColor: string;
-} & Required<Omit<QrCodeOptions, "darkColor" | "lightColor">> = {
+} & Required<Omit<QrCodeOptions, 'darkColor' | 'lightColor'>> = {
   size: 320,
   margin: 2,
-  errorCorrectionLevel: "M",
-  darkColor: "#075E54",
-  lightColor: "#FFFFFF",
+  errorCorrectionLevel: 'M',
+  darkColor: '#075E54',
+  lightColor: '#FFFFFF',
 };
 
 function mergeOptions(opts?: QrCodeOptions): Required<QrCodeOptions> {
   return {
     size: opts?.size ?? DEFAULTS.size,
     margin: opts?.margin ?? DEFAULTS.margin,
-    errorCorrectionLevel:
-      opts?.errorCorrectionLevel ?? DEFAULTS.errorCorrectionLevel,
+    errorCorrectionLevel: opts?.errorCorrectionLevel ?? DEFAULTS.errorCorrectionLevel,
     darkColor: opts?.darkColor ?? DEFAULTS.darkColor,
     lightColor: opts?.lightColor ?? DEFAULTS.lightColor,
   };
 }
 
-function toDataUrlOptions(
-  opts: Required<QrCodeOptions>,
-): QRCodeToDataURLOptions {
+function toDataUrlOptions(opts: Required<QrCodeOptions>): QRCodeToDataURLOptions {
   return {
     width: opts.size,
     margin: opts.margin,
@@ -46,21 +40,15 @@ function toDataUrlOptions(
   };
 }
 
-export async function toPngDataUrl(
-  text: string,
-  opts?: QrCodeOptions,
-): Promise<string> {
+export async function toPngDataUrl(text: string, opts?: QrCodeOptions): Promise<string> {
   return QRCode.toDataURL(text, toDataUrlOptions(mergeOptions(opts)));
 }
 
-export async function toSvgString(
-  text: string,
-  opts?: QrCodeOptions,
-): Promise<string> {
+export async function toSvgString(text: string, opts?: QrCodeOptions): Promise<string> {
   const merged = mergeOptions(opts);
 
   return QRCode.toString(text, {
-    type: "svg",
+    type: 'svg',
     width: merged.size,
     margin: merged.margin,
     errorCorrectionLevel: merged.errorCorrectionLevel,
@@ -88,13 +76,13 @@ export async function drawToCanvas(
   // stays at the full pixel value, so the QR is stretched vertically. Drop those
   // inline layout dimensions; keep `canvas.width` / `canvas.height` attributes
   // for the actual bitmap resolution — author CSS controls on-screen size.
-  canvas.style.removeProperty("width");
-  canvas.style.removeProperty("height");
+  canvas.style.removeProperty('width');
+  canvas.style.removeProperty('height');
 }
 
 export function downloadBlob(blob: Blob, filename: string): void {
   const href = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = href;
   a.download = filename;
   document.body.appendChild(a);
@@ -120,6 +108,6 @@ export async function downloadSvg(
   opts?: QrCodeOptions,
 ): Promise<void> {
   const svg = await toSvgString(text, opts);
-  const blob = new Blob([svg], { type: "image/svg+xml" });
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
   downloadBlob(blob, filename);
 }

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Languages } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
-import { type ReactElement, useMemo, useTransition } from "react";
+import { Languages } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
+import { type ReactElement, useMemo, useTransition } from 'react';
 
-import { Combobox, type ComboboxItem } from "@/components/ui/Combobox";
-import { type Locale, LOCALE_LABELS, LOCALES } from "@/i18n/config";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Combobox, type ComboboxItem } from '@/components/ui/Combobox';
+import { type Locale, LOCALE_LABELS, LOCALES } from '@/i18n/config';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 export function LocaleSwitcher(): ReactElement {
-  const t = useTranslations("locale");
+  const t = useTranslations('locale');
   const current = useLocale() as Locale;
   const router = useRouter();
   const pathname = usePathname();
@@ -23,11 +23,7 @@ export function LocaleSwitcher(): ReactElement {
         value: locale,
         label: LOCALE_LABELS[locale].native,
         description: LOCALE_LABELS[locale].english,
-        keywords: [
-          LOCALE_LABELS[locale].english,
-          LOCALE_LABELS[locale].native,
-          locale,
-        ],
+        keywords: [LOCALE_LABELS[locale].english, LOCALE_LABELS[locale].native, locale],
       })),
     [],
   );
@@ -49,7 +45,7 @@ export function LocaleSwitcher(): ReactElement {
       items={items}
       value={current}
       onValueChange={onChange}
-      ariaLabel={t("switchLabel")}
+      ariaLabel={t('switchLabel')}
       triggerVariant="icon"
       triggerIcon={<Languages aria-hidden="true" className="size-4" />}
       align="end"

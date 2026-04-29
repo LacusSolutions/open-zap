@@ -1,18 +1,13 @@
-"use client";
+'use client';
 
-import { Monitor, Moon, Sun } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
-import {
-  type ReactElement,
-  type ReactNode,
-  useMemo,
-  useSyncExternalStore,
-} from "react";
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
+import { type ReactElement, type ReactNode, useMemo, useSyncExternalStore } from 'react';
 
-import { Combobox, type ComboboxItem } from "@/components/ui/Combobox";
+import { Combobox, type ComboboxItem } from '@/components/ui/Combobox';
 
-const MODES = ["system", "light", "dark"] as const;
+const MODES = ['system', 'light', 'dark'] as const;
 type Mode = (typeof MODES)[number];
 
 const MODE_ICONS: Record<Mode, ReactNode> = {
@@ -42,15 +37,15 @@ function useHasMounted(): boolean {
 export function ThemeToggle(): ReactElement {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const mounted = useHasMounted();
-  const t = useTranslations("theme");
+  const t = useTranslations('theme');
 
-  const current = (theme as Mode | undefined) ?? "system";
-  const effective = resolvedTheme ?? "light";
+  const current = (theme as Mode | undefined) ?? 'system';
+  const effective = resolvedTheme ?? 'light';
 
   const triggerIcon = mounted
-    ? current === "system"
+    ? current === 'system'
       ? MODE_ICONS.system
-      : effective === "dark"
+      : effective === 'dark'
         ? MODE_ICONS.dark
         : MODE_ICONS.light
     : MODE_ICONS.system;
@@ -70,7 +65,7 @@ export function ThemeToggle(): ReactElement {
       items={items}
       value={current}
       onValueChange={(next) => setTheme(next)}
-      ariaLabel={t("toggleAriaLabel", { current: t(`modes.${current}`) })}
+      ariaLabel={t('toggleAriaLabel', { current: t(`modes.${current}`) })}
       triggerVariant="icon"
       triggerIcon={triggerIcon}
       align="end"

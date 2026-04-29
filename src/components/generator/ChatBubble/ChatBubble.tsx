@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Check, CheckCheck } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { type ReactElement, useMemo } from "react";
+import { Check, CheckCheck } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { type ReactElement, useMemo } from 'react';
 
 interface ChatBubbleProps {
   message?: string;
@@ -16,7 +16,7 @@ function formatLinks(text: string): ReactElement[] {
       return (
         <a
           key={i}
-          href={part.startsWith("http") ? part : `https://${part}`}
+          href={part.startsWith('http') ? part : `https://${part}`}
           target="_blank"
           rel="noreferrer noopener"
           className="text-accent-500 underline decoration-accent-500/40 hover:decoration-accent-500"
@@ -31,10 +31,9 @@ function formatLinks(text: string): ReactElement[] {
 }
 
 export function ChatBubble({ message }: ChatBubbleProps): ReactElement {
-  const t = useTranslations("preview");
+  const t = useTranslations('preview');
   const now = useMemo(
-    () =>
-      new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     [],
   );
   const content = message?.trim();
@@ -48,17 +47,14 @@ export function ChatBubble({ message }: ChatBubbleProps): ReactElement {
               formatLinks(content)
             ) : (
               <span className="italic text-[color:rgb(0_0_0_/_0.4)] dark:text-white/60">
-                {t("emptyBubble")}
+                {t('emptyBubble')}
               </span>
             )}
           </div>
           <div className="mt-1 flex items-center justify-end gap-1 text-[11px] text-[color:rgb(0_0_0_/_0.5)] dark:text-white/60">
             <span>{now}</span>
             {content ? (
-              <CheckCheck
-                className="size-3.5 text-accent-400"
-                aria-hidden="true"
-              />
+              <CheckCheck className="size-3.5 text-accent-400" aria-hidden="true" />
             ) : (
               <Check className="size-3.5" aria-hidden="true" />
             )}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   CircleEllipsis,
@@ -8,12 +8,12 @@ import {
   MessageCircle,
   Phone,
   Share2,
-} from "lucide-react";
-import { useTranslations } from "next-intl";
-import { type ReactElement, type ReactNode, useMemo } from "react";
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { type ReactElement, type ReactNode, useMemo } from 'react';
 
-import { Combobox, type ComboboxItem } from "@/components/ui/Combobox";
-import { LINK_VARIANTS, type LinkVariant } from "@/lib/whatsapp";
+import { Combobox, type ComboboxItem } from '@/components/ui/Combobox';
+import { LINK_VARIANTS, type LinkVariant } from '@/lib/whatsapp';
 
 interface VariantComboboxProps {
   id?: string;
@@ -31,13 +31,9 @@ const ICONS: Record<LinkVariant, ReactNode> = {
   shortCode: <CircleEllipsis className="size-4" aria-hidden="true" />,
 };
 
-export function VariantCombobox({
-  value,
-  onChange,
-  id,
-}: VariantComboboxProps): ReactElement {
-  const tVariants = useTranslations("variants");
-  const tCombobox = useTranslations("variants.combobox");
+export function VariantCombobox({ value, onChange, id }: VariantComboboxProps): ReactElement {
+  const tVariants = useTranslations('variants');
+  const tCombobox = useTranslations('variants.combobox');
 
   const items = useMemo<ComboboxItem<LinkVariant>[]>(
     () =>
@@ -56,8 +52,8 @@ export function VariantCombobox({
       items={items}
       value={value}
       onValueChange={onChange}
-      ariaLabel={tCombobox("ariaLabel")}
-      placeholder={tCombobox("placeholder")}
+      ariaLabel={tCombobox('ariaLabel')}
+      placeholder={tCombobox('placeholder')}
       showSearch={false}
     />
   );

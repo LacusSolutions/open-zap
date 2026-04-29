@@ -1,1 +1,1 @@
-export { GeneratorShell } from "./GeneratorShell";
+export { GeneratorShell } from './GeneratorShell';

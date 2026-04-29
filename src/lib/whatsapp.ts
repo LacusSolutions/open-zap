@@ -1,11 +1,11 @@
 export const LINK_VARIANTS = [
-  "wa",
-  "api",
-  "deepLink",
-  "web",
-  "call",
-  "share",
-  "shortCode",
+  'wa',
+  'api',
+  'deepLink',
+  'web',
+  'call',
+  'share',
+  'shortCode',
 ] as const;
 
 export type LinkVariant = (typeof LINK_VARIANTS)[number];
@@ -28,39 +28,39 @@ export interface WhatsAppLinkInput {
 
 export const MAX_MESSAGE_LENGTH = 4096;
 export const VARIANTS_REQUIRING_PHONE: readonly LinkVariant[] = [
-  "wa",
-  "api",
-  "deepLink",
-  "web",
-  "call",
+  'wa',
+  'api',
+  'deepLink',
+  'web',
+  'call',
 ];
 export const VARIANTS_SUPPORTING_TEXT: readonly LinkVariant[] = [
-  "wa",
-  "api",
-  "deepLink",
-  "web",
-  "share",
+  'wa',
+  'api',
+  'deepLink',
+  'web',
+  'share',
 ];
-export const VARIANTS_SUPPORTING_UTM: readonly LinkVariant[] = ["api"];
+export const VARIANTS_SUPPORTING_UTM: readonly LinkVariant[] = ['api'];
 
 const UTM_KEY_MAP: Record<keyof UtmParams, string> = {
-  source: "utm_source",
-  medium: "utm_medium",
-  campaign: "utm_campaign",
-  content: "utm_content",
-  term: "utm_term",
+  source: 'utm_source',
+  medium: 'utm_medium',
+  campaign: 'utm_campaign',
+  content: 'utm_content',
+  term: 'utm_term',
 };
 
 export function normalizePhone(raw: string | undefined): string {
-  if (!raw) return "";
+  if (!raw) return '';
 
-  return raw.replace(/\D+/g, "").replace(/^0+/, "");
+  return raw.replace(/\D+/g, '').replace(/^0+/, '');
 }
 
 export function sanitizeShortCode(raw: string | undefined): string {
-  if (!raw) return "";
+  if (!raw) return '';
 
-  return raw.replace(/[^A-Z0-9]/gi, "").toUpperCase();
+  return raw.replace(/[^A-Z0-9]/gi, '').toUpperCase();
 }
 
 function encodeText(text: string | undefined): string | undefined {
@@ -70,25 +70,21 @@ function encodeText(text: string | undefined): string | undefined {
 }
 
 function buildQueryString(params: Record<string, string | undefined>): string {
-  const entries = Object.entries(params).filter(
-    (entry): entry is [string, string] => {
-      return typeof entry[1] === "string" && entry[1].length > 0;
-    },
-  );
+  const entries = Object.entries(params).filter((entry): entry is [string, string] => {
+    return typeof entry[1] === 'string' && entry[1].length > 0;
+  });
 
-  if (entries.length === 0) return "";
+  if (entries.length === 0) return '';
 
-  return `?${entries.map(([k, v]) => `${k}=${v}`).join("&")}`;
+  return `?${entries.map(([k, v]) => `${k}=${v}`).join('&')}`;
 }
 
-function resolveUtm(
-  utm: undefined | UtmParams,
-): Record<string, string | undefined> {
+function resolveUtm(utm: undefined | UtmParams): Record<string, string | undefined> {
   if (!utm) return {};
 
   return Object.fromEntries(
     (Object.keys(UTM_KEY_MAP) as (keyof UtmParams)[])
-      .filter((k) => typeof utm[k] === "string" && utm[k] !== "")
+      .filter((k) => typeof utm[k] === 'string' && utm[k] !== '')
       .map((k) => [UTM_KEY_MAP[k], encodeURIComponent(utm[k] as string)]),
   );
 }
@@ -100,7 +96,7 @@ export function buildWhatsAppUrl(input: WhatsAppLinkInput): string {
   const shortCode = sanitizeShortCode(input.shortCode);
 
   switch (variant) {
-    case "api": {
+    case 'api': {
       const query = buildQueryString({
         phone: phone || undefined,
         text,
@@ -109,12 +105,12 @@ export function buildWhatsAppUrl(input: WhatsAppLinkInput): string {
 
       return `https://api.whatsapp.com/send${query}`;
     }
-    case "call": {
-      if (!phone) return "https://wa.me/call";
+    case 'call': {
+      if (!phone) return 'https://wa.me/call';
 
       return `https://wa.me/call/${phone}`;
     }
-    case "deepLink": {
+    case 'deepLink': {
       const query = buildQueryString({
         phone: phone || undefined,
         text,
@@ -122,20 +118,20 @@ export function buildWhatsAppUrl(input: WhatsAppLinkInput): string {
 
       return `whatsapp://send${query}`;
     }
-    case "share": {
+    case 'share': {
       return `https://wa.me/${buildQueryString({ text })}`;
     }
-    case "shortCode": {
-      if (!shortCode) return "https://wa.me/message/";
+    case 'shortCode': {
+      if (!shortCode) return 'https://wa.me/message/';
 
       return `https://wa.me/message/${shortCode}`;
     }
-    case "wa": {
-      const base = phone ? `https://wa.me/${phone}` : "https://wa.me";
+    case 'wa': {
+      const base = phone ? `https://wa.me/${phone}` : 'https://wa.me';
 
       return `${base}${buildQueryString({ text })}`;
     }
-    case "web": {
+    case 'web': {
       const query = buildQueryString({
         phone: phone || undefined,
         text,
@@ -164,5 +160,5 @@ export function variantSupportsUtm(variant: LinkVariant): boolean {
 }
 
 export function variantRequiresShortCode(variant: LinkVariant): boolean {
-  return variant === "shortCode";
+  return variant === 'shortCode';
 }
