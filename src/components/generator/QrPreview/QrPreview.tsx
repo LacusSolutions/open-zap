@@ -58,6 +58,8 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
     onDownload?.("svg");
   }
 
+  const displayMaxPx = Math.min(size, 240);
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-center rounded-2xl bg-white p-4 ring-1 ring-[var(--color-border)]">
@@ -65,7 +67,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
           ref={canvasRef}
           aria-label={t("title")}
           className="h-auto max-w-full"
-          style={{ width: Math.min(size, 240), height: Math.min(size, 240) }}
+          style={{ width: `${displayMaxPx}px` }}
         />
       </div>
 

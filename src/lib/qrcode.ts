@@ -81,6 +81,15 @@ export async function drawToCanvas(
     errorCorrectionLevel: merged.errorCorrectionLevel,
     color: { dark: merged.darkColor, light: merged.lightColor },
   });
+
+  // `qrcode`'s canvas renderer sets `style.width` / `style.height` to the bitmap
+  // size (see node_modules/qrcode/lib/renderer/canvas.js). That breaks responsive
+  // CSS: e.g. `max-width: 100%` shrinks the used width while the inline height
+  // stays at the full pixel value, so the QR is stretched vertically. Drop those
+  // inline layout dimensions; keep `canvas.width` / `canvas.height` attributes
+  // for the actual bitmap resolution — author CSS controls on-screen size.
+  canvas.style.removeProperty("width");
+  canvas.style.removeProperty("height");
 }
 
 export function downloadBlob(blob: Blob, filename: string): void {
