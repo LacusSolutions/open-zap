@@ -33,7 +33,7 @@ OpenZap is a small SSR single-page app that turns a phone number and a prefilled
 - [react-hook-form](https://react-hook-form.com/) + [zod](https://zod.dev/) for forms
 - [libphonenumber-js](https://github.com/catamphetamine/libphonenumber-js) + [qrcode](https://github.com/soldair/node-qrcode)
 - [@vercel/analytics](https://vercel.com/docs/analytics) + [@vercel/speed-insights](https://vercel.com/docs/speed-insights)
-- DX: ESLint 9 (via [`eslint-config-any`](https://github.com/LacusSolutions/eslint-config-any)), Husky, lint-staged, Commitlint, Commitizen, Vitest
+- DX: ESLint 9 (via [`eslint-config-any`](https://github.com/LacusSolutions/eslint-config-any)), Husky, lint-staged, Commitlint, Vitest
 
 ## Getting started
 
@@ -49,16 +49,15 @@ Open http://localhost:3000. The default locale (`en`) is served at `/`; other lo
 
 ### Scripts
 
-| Script                | What it does                                |
-| --------------------- | ------------------------------------------- |
-| `dev`                 | Start the Next.js dev server (Turbopack)    |
-| `build`               | Build for production                        |
-| `start`               | Run the production build                    |
-| `lint` / `lint:fix`   | Run ESLint (and auto-fix)                   |
-| `format`              | Run Prettier over the repo                  |
-| `typecheck`           | Run `tsc --noEmit`                          |
-| `test` / `test:watch` | Run the Vitest suite (or watch it)          |
-| `commit`              | Commitizen prompt for a Conventional Commit |
+| Script                | What it does                             |
+| --------------------- | ---------------------------------------- |
+| `dev`                 | Start the Next.js dev server (Turbopack) |
+| `build`               | Build for production                     |
+| `start`               | Run the production build                 |
+| `lint` / `lint:fix`   | Run ESLint (and auto-fix)                |
+| `format`              | Run Prettier over the repo               |
+| `typecheck`           | Run `tsc --noEmit`                       |
+| `test` / `test:watch` | Run the Vitest suite (or watch it)       |
 
 ### Git hooks
 
@@ -67,7 +66,7 @@ Husky runs two hooks automatically after `bun install`:
 - **`pre-commit`** → `lint-staged` (ESLint + Prettier on changed files only)
 - **`commit-msg`** → `commitlint` (enforces Conventional Commits)
 
-Use `bun run commit` if you want Commitizen's interactive prompt.
+Write commit messages in the [Conventional Commits](https://www.conventionalcommits.org/) format; `commitlint` rejects anything that does not match.
 
 ## Project structure
 
