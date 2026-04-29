@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "title": "OpenZap — Generador gratuito de enlaces y códigos QR de WhatsApp",
+    "description": "Genera enlaces click-to-chat y códigos QR de WhatsApp con mensaje predefinido, seguimiento UTM y más. Gratis, privado, sin registro."
+  },
+  "app": {
+    "name": "OpenZap",
+    "tagline": "Enlaces de WhatsApp bien hechos."
+  },
+  "header": {
+    "github": "Ver código en GitHub",
+    "feedback": "Comentarios"
+  },
+  "theme": {
+    "modes": {
+      "system": "Sistema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "toggleAriaLabel": "Alternar tema (actual: {current})",
+    "toggleTitle": "Tema: {current}"
+  },
+  "locale": {
+    "switchLabel": "Cambiar idioma",
+    "current": "Idioma actual: {label}"
+  },
+  "hero": {
+    "title": "Genera enlaces y códigos QR de WhatsApp",
+    "subtitle": "Crea una URL click-to-chat con mensaje predefinido, seguimiento UTM y un QR descargable. Todo corre en tu navegador — nunca vemos tus datos."
+  },
+  "variants": {
+    "wa": {
+      "label": "Enlace estándar",
+      "description": "URL universal wa.me — funciona en cualquier dispositivo."
+    },
+    "api": {
+      "label": "Con UTM",
+      "description": "URL api.whatsapp.com que admite parámetros UTM para analítica."
+    },
+    "deepLink": {
+      "label": "Deep link de la app",
+      "description": "Deep link whatsapp:// — solo se abre si la app está instalada."
+    },
+    "web": {
+      "label": "Solo web",
+      "description": "URL web.whatsapp.com — fuerza el cliente web en escritorio."
+    },
+    "call": {
+      "label": "Llamada de voz/vídeo",
+      "description": "wa.me/call/ — inicia una llamada de WhatsApp."
+    },
+    "share": {
+      "label": "Compartir (sin número)",
+      "description": "wa.me/?text= — el destinatario elige el contacto."
+    },
+    "shortCode": {
+      "label": "Código corto (Business)",
+      "description": "wa.me/message/<CÓDIGO> — usa el enlace corto de WhatsApp Business."
+    }
+  },
+  "form": {
+    "sections": {
+      "destination": "Destinatario",
+      "message": "Mensaje predefinido",
+      "tracking": "Seguimiento UTM",
+      "advanced": "Avanzado"
+    },
+    "phone": {
+      "label": "Número de teléfono",
+      "placeholder": "612 345 678",
+      "countryLabel": "País",
+      "help": "Formato internacional. El prefijo del país se añade automáticamente.",
+      "invalid": "Ingresa un número válido para el país seleccionado.",
+      "required": "El número de teléfono es obligatorio en esta variante."
+    },
+    "shortCode": {
+      "label": "Código corto",
+      "placeholder": "ej. H4XYZAB12",
+      "help": "El código aparece después de wa.me/message/ en tu enlace Business.",
+      "required": "El código corto es obligatorio.",
+      "invalid": "Solo se permiten letras y dígitos."
+    },
+    "message": {
+      "label": "Mensaje",
+      "placeholder": "Hola, vi tu sitio web y...",
+      "help": "Hasta 4.096 caracteres. Los saltos de línea se mantienen.",
+      "counter": "{count}/{max}"
+    },
+    "utm": {
+      "toggle": "Añadir parámetros UTM",
+      "source": "utm_source",
+      "medium": "utm_medium",
+      "campaign": "utm_campaign",
+      "content": "utm_content",
+      "term": "utm_term",
+      "sourcePlaceholder": "instagram",
+      "mediumPlaceholder": "bio",
+      "campaignPlaceholder": "promo_verano"
+    },
+    "reset": "Restablecer formulario",
+    "share": "Compartir este formulario",
+    "shared": "¡Enlace copiado!"
+  },
+  "preview": {
+    "title": "Vista previa",
+    "chatHint": "Así se verá tu mensaje en WhatsApp.",
+    "emptyBubble": "Tu mensaje aparecerá aquí…",
+    "url": {
+      "title": "URL generada",
+      "copy": "Copiar URL",
+      "copied": "¡Copiado!",
+      "open": "Abrir en WhatsApp",
+      "openHint": "Abre la app o WhatsApp Web."
+    },
+    "qr": {
+      "title": "Código QR",
+      "downloadPng": "Descargar PNG",
+      "downloadSvg": "Descargar SVG",
+      "size": "Tamaño",
+      "margin": "Margen",
+      "errorCorrection": "Corrección de errores",
+      "levels": {
+        "L": "L · 7%",
+        "M": "M · 15%",
+        "Q": "Q · 25%",
+        "H": "H · 30%"
+      }
+    }
+  },
+  "footer": {
+    "madeBy": "Hecho con cariño. Código en",
+    "github": "GitHub",
+    "trademark": "WhatsApp es una marca de Meta Platforms, Inc. OpenZap no está afiliado a WhatsApp ni a Meta."
+  },
+  "feedback": {
+    "title": "Enviar comentarios",
+    "description": "¿Encontraste un error, tienes una idea o quieres saludar? Nos encantaría oírte.",
+    "emailLabel": "Correo (opcional)",
+    "messageLabel": "Tu mensaje",
+    "messagePlaceholder": "Cuéntanos qué piensas…",
+    "submit": "Enviar",
+    "submitting": "Enviando…",
+    "success": "¡Gracias! Tu comentario ha sido enviado.",
+    "error": "Algo salió mal. Inténtalo de nuevo.",
+    "cancel": "Cancelar",
+    "open": "Comentarios"
+  }
+}

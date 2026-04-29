@@ -1,0 +1,1 @@
+export { LinkVariantTabs } from "./LinkVariantTabs";
