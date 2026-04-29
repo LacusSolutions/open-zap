@@ -1,0 +1,1 @@
+export { VariantCombobox } from "./VariantCombobox";

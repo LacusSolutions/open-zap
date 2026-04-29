@@ -56,6 +56,10 @@
     "shortCode": {
       "label": "Business short code",
       "description": "wa.me/message/<CODE> — uses a WhatsApp Business short link."
+    },
+    "combobox": {
+      "ariaLabel": "Link type",
+      "placeholder": "Choose a link type"
     }
   },
   "form": {

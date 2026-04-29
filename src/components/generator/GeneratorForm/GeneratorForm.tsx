@@ -7,10 +7,10 @@ import { type ReactElement, useEffect, useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { BusinessShortCodeField } from "@/components/generator/BusinessShortCodeField";
-import { LinkVariantTabs } from "@/components/generator/LinkVariantTabs";
 import { MessageField } from "@/components/generator/MessageField";
 import { PhoneField } from "@/components/generator/PhoneField";
 import { UtmFieldset } from "@/components/generator/UtmFieldset";
+import { VariantCombobox } from "@/components/generator/VariantCombobox";
 import { Button } from "@/components/ui/Button";
 import { decodeFormFromParams, encodeFormToParams } from "@/lib/formState";
 import { DEFAULT_VALUES, type FormValues } from "@/lib/schema";
@@ -78,10 +78,13 @@ export function GeneratorForm({ onChange }: GeneratorFormProps): ReactElement {
         onSubmit={(e) => e.preventDefault()}
       >
         <section>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+          <h2
+            id="destination-label"
+            className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]"
+          >
             {t("sections.destination")}
           </h2>
-          <LinkVariantTabs
+          <VariantCombobox
             value={variant}
             onChange={(v) =>
               methods.setValue("variant", v, { shouldDirty: true })
