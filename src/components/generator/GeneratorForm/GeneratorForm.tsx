@@ -141,7 +141,7 @@ export function GeneratorForm({ onChange }: GeneratorFormProps): ReactElement {
           </section>
         )}
 
-        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] pt-4 lg:col-span-2">
+        <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[var(--color-border)] pt-4 lg:col-span-2">
           <Button type="button" variant="ghost" size="sm" onClick={() => reset(DEFAULT_VALUES)}>
             <RotateCcw className="size-4" aria-hidden="true" />
             {t('reset')}

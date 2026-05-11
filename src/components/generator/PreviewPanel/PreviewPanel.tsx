@@ -44,7 +44,7 @@ export function PreviewPanel({
           <div className="break-all rounded-lg bg-[var(--color-surface-muted)] px-3 py-2 font-mono text-xs text-[var(--color-text)]">
             {url}
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-end gap-2">
             <CopyButton text={url} variant="primary" size="sm" onCopy={onCopy} />
             <Button
               type="button"

@@ -114,7 +114,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-end gap-2">
         <Button type="button" variant="primary" size="sm" onClick={onPng}>
           <Download className="size-4" aria-hidden="true" />
           {t('downloadPng')}
