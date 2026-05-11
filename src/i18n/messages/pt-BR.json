@@ -123,6 +123,7 @@
       "downloadSvg": "Baixar SVG",
       "size": "Tamanho",
       "margin": "Margem",
+      "color": "Cor",
       "errorCorrection": "Correção de erro",
       "levels": {
         "L": "L · 7%",
