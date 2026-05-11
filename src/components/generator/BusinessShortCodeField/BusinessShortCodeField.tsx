@@ -17,7 +17,9 @@ export function BusinessShortCodeField(): ReactElement {
 
   return (
     <div>
-      <Label htmlFor="shortCode">{t('label')}</Label>
+      <Label htmlFor="shortCode" required>
+        {t('label')}
+      </Label>
       <Controller
         control={control}
         name="shortCode"

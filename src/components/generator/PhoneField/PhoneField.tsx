@@ -32,7 +32,9 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
   return (
     <fieldset className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
       <div>
-        <Label htmlFor="country">{t('countryLabel')}</Label>
+        <Label htmlFor="country" required={required}>
+          {t('countryLabel')}
+        </Label>
         <Controller
           control={control}
           name="country"
@@ -52,7 +54,9 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
       </div>
       <div>
-        <Label htmlFor="phone">{t('label')}</Label>
+        <Label htmlFor="phone" required={required}>
+          {t('label')}
+        </Label>
         <Controller
           control={control}
           name="phone"

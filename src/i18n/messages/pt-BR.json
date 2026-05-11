@@ -103,10 +103,11 @@
     },
     "reset": "Limpar formulário",
     "share": "Compartilhar este formulário",
-    "shared": "Link copiado!"
+    "shared": "Link copiado!",
+    "optional": "opcional"
   },
   "preview": {
-    "title": "Pré-visualização",
+    "title": "Resultado",
     "chatHint": "É assim que sua mensagem aparecerá no WhatsApp.",
     "emptyBubble": "Sua mensagem aparecerá aqui…",
     "url": {
