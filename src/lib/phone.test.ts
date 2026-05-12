@@ -21,11 +21,26 @@ describe('phoneToWhatsAppDigits', () => {
     expect(phoneToWhatsAppDigits('5511912345678', 'BR')).toBe('5511912345678');
   });
 
-  it('always returns digits starting with the country dialing code (DDI)', () => {
-    // Partial input that libphonenumber cannot fully parse still gets the DDI
-    // prefix from the heuristic fallback so the generated URL keeps growing
-    // while the user is typing.
-    expect(phoneToWhatsAppDigits('11', 'BR').startsWith('55')).toBe(true);
-    expect(phoneToWhatsAppDigits('415', 'US').startsWith('1')).toBe(true);
+  it('prepends DDI for partial input that does not parse as a full number', () => {
+    expect(phoneToWhatsAppDigits('11', 'BR')).toBe('5511');
+    expect(phoneToWhatsAppDigits('415', 'US')).toBe('1415');
+  });
+
+  it('handles very short partial input', () => {
+    expect(phoneToWhatsAppDigits('9', 'BR')).toBe('559');
+    expect(phoneToWhatsAppDigits('12', 'BR')).toBe('5512');
+  });
+
+  it('returns empty when input is only the country calling code', () => {
+    expect(phoneToWhatsAppDigits('55', 'BR')).toBe('');
+    expect(phoneToWhatsAppDigits('1', 'US')).toBe('');
+  });
+
+  it('strips formatting from partial input', () => {
+    expect(phoneToWhatsAppDigits('(41', 'BR')).toBe('5541');
+  });
+
+  it('removes leading zeros from partial input', () => {
+    expect(phoneToWhatsAppDigits('011', 'BR')).toBe('5511');
   });
 });
