@@ -26,8 +26,9 @@ describe('phoneToWhatsAppDigits', () => {
     expect(phoneToWhatsAppDigits('415', 'US')).toBe('1415');
   });
 
-  it('normalizes explicit international partial input (+ and spaces)', () => {
+  it('normalizes explicit international partial input (+, 00, and spaces)', () => {
     expect(phoneToWhatsAppDigits('+55 11', 'BR')).toBe('5511');
+    expect(phoneToWhatsAppDigits('0055 11', 'BR')).toBe('5511');
   });
 
   it('handles very short partial input', () => {
