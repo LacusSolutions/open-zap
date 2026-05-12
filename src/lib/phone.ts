@@ -60,7 +60,9 @@ export function parsePhone(raw: string, country: CountryCode): string {
  * - When parsing with country is invalid, strips non-digits and leading `0`,
  *   returns `''` if that is only the country calling code (no local digits
  *   yet), otherwise if `+<digits>` is a valid international number uses that
- *   form, else prepends the country calling code for partial local input.
+ *   form, else if `digits` already starts with the DDI and has more digits
+ *   (e.g. `+55 11` → `5511`) returns `digits` without doubling it, else
+ *   prepends the country calling code for partial local input.
  * - Returns `''` for empty input so callers can branch on "no phone yet".
  */
 export function phoneToWhatsAppDigits(raw: string | undefined, country: CountryCode): string {
@@ -84,6 +86,10 @@ export function phoneToWhatsAppDigits(raw: string | undefined, country: CountryC
 
   const intlParsed = parsePhoneNumberFromString(`+${digits}`);
   if (intlParsed?.isValid()) return intlParsed.number.replace(/^\+/, '');
+
+  if (digits.startsWith(callingCode) && digits.length > callingCode.length) {
+    return digits;
+  }
 
   return `${callingCode}${digits}`;
 }
