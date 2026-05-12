@@ -10,6 +10,9 @@ export interface QrCodeOptions {
   size?: number;
 }
 
+export const QR_DEFAULT_DARK_COLOR = '#075E54';
+export const QR_DEFAULT_LIGHT_COLOR = '#FFFFFF';
+
 const DEFAULTS: {
   darkColor: string;
   lightColor: string;
@@ -17,8 +20,8 @@ const DEFAULTS: {
   size: 320,
   margin: 2,
   errorCorrectionLevel: 'M',
-  darkColor: '#075E54',
-  lightColor: '#FFFFFF',
+  darkColor: QR_DEFAULT_DARK_COLOR,
+  lightColor: QR_DEFAULT_LIGHT_COLOR,
 };
 
 function mergeOptions(opts?: QrCodeOptions): Required<QrCodeOptions> {

@@ -22,22 +22,30 @@ interface PhoneFieldProps {
 
 export function PhoneField({ required }: PhoneFieldProps): ReactElement {
   const t = useTranslations('form.phone');
+  const tForm = useTranslations('form');
   const locale = useLocale();
   const { control, watch, formState } = useFormContext<FormValues>();
   const countries = useMemo(() => getSortedCountries(), []);
   const country = watch('country') as CountryCode;
   const phone = watch('phone');
   const showError = required && !!phone && !isValidFor(phone, country) && !!formState.submitCount;
+  const requiredMark = tForm('requiredMark');
 
   return (
     <fieldset className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
       <div>
-        <Label htmlFor="country">{t('countryLabel')}</Label>
+        {required === true ? (
+          <Label htmlFor="country" required requiredAnnouncement={requiredMark}>
+            {t('countryLabel')}
+          </Label>
+        ) : (
+          <Label htmlFor="country">{t('countryLabel')}</Label>
+        )}
         <Controller
           control={control}
           name="country"
           render={({ field }) => (
-            <Select id="country" {...field}>
+            <Select id="country" aria-required={required || undefined} {...field}>
               {countries.map((c) => {
                 const name = localizedCountryName(c.code, locale);
 
@@ -52,7 +60,13 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
       </div>
       <div>
-        <Label htmlFor="phone">{t('label')}</Label>
+        {required === true ? (
+          <Label htmlFor="phone" required requiredAnnouncement={requiredMark}>
+            {t('label')}
+          </Label>
+        ) : (
+          <Label htmlFor="phone">{t('label')}</Label>
+        )}
         <Controller
           control={control}
           name="phone"
@@ -63,6 +77,7 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
               autoComplete="tel"
               placeholder={t('placeholder')}
               invalid={showError}
+              aria-required={required || undefined}
               {...field}
             />
           )}

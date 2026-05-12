@@ -103,10 +103,12 @@
     },
     "reset": "Restablecer formulario",
     "share": "Compartir este formulario",
-    "shared": "¡Enlace copiado!"
+    "shared": "¡Enlace copiado!",
+    "optional": "opcional",
+    "requiredMark": "obligatorio"
   },
   "preview": {
-    "title": "Vista previa",
+    "title": "Resultado",
     "chatHint": "Así se verá tu mensaje en WhatsApp.",
     "emptyBubble": "Tu mensaje aparecerá aquí…",
     "url": {
@@ -122,6 +124,7 @@
       "downloadSvg": "Descargar SVG",
       "size": "Tamaño",
       "margin": "Margen",
+      "color": "Color",
       "errorCorrection": "Corrección de errores",
       "levels": {
         "L": "L · 7%",

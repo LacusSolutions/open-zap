@@ -6,7 +6,13 @@ import { type ReactElement, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Label } from '@/components/ui/Label';
-import { downloadPng, downloadSvg, drawToCanvas, type ErrorCorrectionLevel } from '@/lib/qrcode';
+import {
+  downloadPng,
+  downloadSvg,
+  drawToCanvas,
+  type ErrorCorrectionLevel,
+  QR_DEFAULT_DARK_COLOR,
+} from '@/lib/qrcode';
 
 interface QrPreviewProps {
   onDownload?: (format: 'png' | 'svg') => void;
@@ -21,6 +27,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
   const [size, setSize] = useState(320);
   const [margin, setMargin] = useState(2);
   const [level, setLevel] = useState<ErrorCorrectionLevel>('M');
+  const [color, setColor] = useState<string>(QR_DEFAULT_DARK_COLOR);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -30,16 +37,18 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
       size,
       margin,
       errorCorrectionLevel: level,
+      darkColor: color,
     }).catch(() => {
       /* ignore */
     });
-  }, [url, size, margin, level]);
+  }, [url, size, margin, level, color]);
 
   async function onPng(): Promise<void> {
     await downloadPng(url, 'openzap-qr.png', {
       size,
       margin,
       errorCorrectionLevel: level,
+      darkColor: color,
     });
     onDownload?.('png');
   }
@@ -49,6 +58,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
       size,
       margin,
       errorCorrectionLevel: level,
+      darkColor: color,
     });
     onDownload?.('svg');
   }
@@ -66,7 +76,7 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Label htmlFor="qr-size">
             {t('size')} <span className="text-xs text-[var(--color-text-muted)]">({size}px)</span>
@@ -112,9 +122,25 @@ export function QrPreview({ url, onDownload }: QrPreviewProps): ReactElement {
             ))}
           </select>
         </div>
+        <div>
+          <Label htmlFor="qr-color">
+            {t('color')}{' '}
+            <span className="font-mono text-xs uppercase text-[var(--color-text-muted)]">
+              ({color})
+            </span>
+          </Label>
+          <input
+            id="qr-color"
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            aria-label={t('color')}
+            className="focus-ring h-[38px] w-full cursor-pointer rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-1"
+          />
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-end gap-2">
         <Button type="button" variant="primary" size="sm" onClick={onPng}>
           <Download className="size-4" aria-hidden="true" />
           {t('downloadPng')}

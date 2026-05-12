@@ -103,10 +103,12 @@
     },
     "reset": "Reset form",
     "share": "Share this form",
-    "shared": "Link copied!"
+    "shared": "Link copied!",
+    "optional": "optional",
+    "requiredMark": "required"
   },
   "preview": {
-    "title": "Preview",
+    "title": "Result",
     "chatHint": "This is how your prefilled message will look on WhatsApp.",
     "emptyBubble": "Your message will appear here…",
     "url": {
@@ -122,6 +124,7 @@
       "downloadSvg": "Download SVG",
       "size": "Size",
       "margin": "Margin",
+      "color": "Color",
       "errorCorrection": "Error correction",
       "levels": {
         "L": "L · 7%",

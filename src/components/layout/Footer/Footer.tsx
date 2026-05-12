@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import type { ReactElement } from 'react';
 
-const GITHUB_URL = 'https://github.com/juliolmuller/openzap';
+const GITHUB_URL = 'https://github.com/LacusSolutions/open-zap';
 
 export function Footer(): ReactElement {
   const t = useTranslations('footer');

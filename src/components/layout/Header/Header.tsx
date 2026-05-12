@@ -8,7 +8,7 @@ import { Logo } from '@/components/layout/Logo';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { Link } from '@/i18n/navigation';
 
-const GITHUB_URL = 'https://github.com/juliolmuller/openzap';
+const GITHUB_URL = 'https://github.com/LacusSolutions/open-zap';
 
 export function Header(): ReactElement {
   const t = useTranslations();

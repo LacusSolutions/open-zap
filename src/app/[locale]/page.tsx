@@ -44,8 +44,8 @@ export default async function HomePage({
 
 function GeneratorFallback(): ReactElement {
   return (
-    <div className="grid animate-pulse gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
-      <div className="h-[30rem] rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]" />
+    <div className="flex animate-pulse flex-col gap-6 lg:gap-8">
+      <div className="h-[24rem] rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]" />
       <div className="h-[30rem] rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]" />
     </div>
   );

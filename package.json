@@ -12,7 +12,7 @@
     "build": "next build",
     "prod": "next start",
     "production": "npm run prod",
-    "lint": "eslint src/ commitlint.config.mjs eslint.config.mjs next.config.ts postcss.config.mjs vitest.config.ts",
+    "lint": "eslint src/ commitlint.config.mjs eslint.config.mjs next.config.ts postcss.config.mjs vitest.config.mts",
     "lint:fix": "bun run lint -- --fix",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

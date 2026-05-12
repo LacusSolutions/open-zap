@@ -11,13 +11,19 @@ import { MAX_MESSAGE_LENGTH } from '@/lib/whatsapp';
 
 export function MessageField(): ReactElement {
   const t = useTranslations('form.message');
+  const tForm = useTranslations('form');
   const { control, watch } = useFormContext<FormValues>();
   const value = watch('text') ?? '';
 
   return (
     <div>
       <div className="flex items-end justify-between">
-        <Label htmlFor="text">{t('label')}</Label>
+        <Label htmlFor="text">
+          {t('label')}{' '}
+          <span className="text-xs font-normal text-[var(--color-text-muted)]">
+            ({tForm('optional')})
+          </span>
+        </Label>
         <span
           aria-live="polite"
           className="mb-1.5 text-xs text-[var(--color-text-muted)] tabular-nums"
