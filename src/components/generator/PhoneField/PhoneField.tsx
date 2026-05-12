@@ -29,17 +29,18 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
   const country = watch('country') as CountryCode;
   const phone = watch('phone');
   const showError = required && !!phone && !isValidFor(phone, country) && !!formState.submitCount;
+  const requiredMark = tForm('requiredMark');
 
   return (
     <fieldset className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
       <div>
-        <Label
-          htmlFor="country"
-          required={required}
-          requiredAnnouncement={required ? tForm('requiredMark') : undefined}
-        >
-          {t('countryLabel')}
-        </Label>
+        {required === true ? (
+          <Label htmlFor="country" required requiredAnnouncement={requiredMark}>
+            {t('countryLabel')}
+          </Label>
+        ) : (
+          <Label htmlFor="country">{t('countryLabel')}</Label>
+        )}
         <Controller
           control={control}
           name="country"
@@ -59,13 +60,13 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
       </div>
       <div>
-        <Label
-          htmlFor="phone"
-          required={required}
-          requiredAnnouncement={required ? tForm('requiredMark') : undefined}
-        >
-          {t('label')}
-        </Label>
+        {required === true ? (
+          <Label htmlFor="phone" required requiredAnnouncement={requiredMark}>
+            {t('label')}
+          </Label>
+        ) : (
+          <Label htmlFor="phone">{t('label')}</Label>
+        )}
         <Controller
           control={control}
           name="phone"

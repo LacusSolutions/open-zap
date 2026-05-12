@@ -2,32 +2,38 @@ import type { LabelHTMLAttributes, ReactElement } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+export type LabelProps = {
+  htmlFor: string;
+} & (
+  | { required: true; requiredAnnouncement: string }
+  | { required?: false; requiredAnnouncement?: never }
+) &
+  LabelHTMLAttributes<HTMLLabelElement>;
+
+type LabelImplProps = {
   htmlFor: string;
   required?: boolean;
-  /**
-   * Announced by screen readers when `required` is true (e.g. localized
-   * "required").
-   */
   requiredAnnouncement?: string;
-}
+} & LabelHTMLAttributes<HTMLLabelElement>;
 
-export function Label({
-  className,
-  children,
-  required,
-  requiredAnnouncement,
-  ...props
-}: LabelProps): ReactElement {
-  const announced = requiredAnnouncement ?? 'required';
+export function Label(props: LabelProps): ReactElement {
+  const { className, children, htmlFor, required, requiredAnnouncement, ...rest } =
+    props as LabelImplProps;
+  const showRequired = required === true;
+  const announced = showRequired ? requiredAnnouncement : undefined;
+
+  if (process.env.NODE_ENV !== 'production' && showRequired && !announced) {
+    console.warn('Label: `requiredAnnouncement` must be provided when `required` is true.');
+  }
 
   return (
     <label
       className={cn('block text-sm font-medium text-[var(--color-text)] mb-1.5', className)}
-      {...props}
+      htmlFor={htmlFor}
+      {...rest}
     >
       {children}
-      {required && (
+      {showRequired && announced && (
         <>
           <span aria-hidden="true" className="ml-0.5 text-red-500">
             *
