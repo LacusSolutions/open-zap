@@ -104,7 +104,8 @@
     "reset": "Restablecer formulario",
     "share": "Compartir este formulario",
     "shared": "¡Enlace copiado!",
-    "optional": "opcional"
+    "optional": "opcional",
+    "requiredMark": "obligatorio"
   },
   "preview": {
     "title": "Resultado",

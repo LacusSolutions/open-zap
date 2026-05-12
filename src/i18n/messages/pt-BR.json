@@ -104,7 +104,8 @@
     "reset": "Limpar formulário",
     "share": "Compartilhar este formulário",
     "shared": "Link copiado!",
-    "optional": "opcional"
+    "optional": "opcional",
+    "requiredMark": "obrigatório"
   },
   "preview": {
     "title": "Resultado",

@@ -22,6 +22,7 @@ interface PhoneFieldProps {
 
 export function PhoneField({ required }: PhoneFieldProps): ReactElement {
   const t = useTranslations('form.phone');
+  const tForm = useTranslations('form');
   const locale = useLocale();
   const { control, watch, formState } = useFormContext<FormValues>();
   const countries = useMemo(() => getSortedCountries(), []);
@@ -32,14 +33,18 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
   return (
     <fieldset className="grid gap-3 sm:grid-cols-[minmax(10rem,14rem)_1fr]">
       <div>
-        <Label htmlFor="country" required={required}>
+        <Label
+          htmlFor="country"
+          required={required}
+          requiredAnnouncement={required ? tForm('requiredMark') : undefined}
+        >
           {t('countryLabel')}
         </Label>
         <Controller
           control={control}
           name="country"
           render={({ field }) => (
-            <Select id="country" {...field}>
+            <Select id="country" aria-required={required || undefined} {...field}>
               {countries.map((c) => {
                 const name = localizedCountryName(c.code, locale);
 
@@ -54,7 +59,11 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
         />
       </div>
       <div>
-        <Label htmlFor="phone" required={required}>
+        <Label
+          htmlFor="phone"
+          required={required}
+          requiredAnnouncement={required ? tForm('requiredMark') : undefined}
+        >
           {t('label')}
         </Label>
         <Controller
@@ -67,6 +76,7 @@ export function PhoneField({ required }: PhoneFieldProps): ReactElement {
               autoComplete="tel"
               placeholder={t('placeholder')}
               invalid={showError}
+              aria-required={required || undefined}
               {...field}
             />
           )}

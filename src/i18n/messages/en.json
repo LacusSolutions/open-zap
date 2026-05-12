@@ -104,7 +104,8 @@
     "reset": "Reset form",
     "share": "Share this form",
     "shared": "Link copied!",
-    "optional": "optional"
+    "optional": "optional",
+    "requiredMark": "required"
   },
   "preview": {
     "title": "Result",
